@@ -1,0 +1,24 @@
+{
+  "name": "koa-api-shim",
+  "description": "Nodejs shim use koa framework to call backend api.",
+  "main": "dist/koa-api-shim.js",
+  "authors": [
+    "afei"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "next"
+  ],
+  "homepage": "https://github.com/afeiship/koa-api-shim",
+  "moduleType": [
+    "amd"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src"
+  ]
+}
