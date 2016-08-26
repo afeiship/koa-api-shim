@@ -1,6 +1,15 @@
+import Koa from 'koa';
+import request from './vendors/koa-request';
 
-let first = (size, ...args) => [...args].slice(0, size);
+let app = Koa();
 
-export default first;
+app.use(function *() {
+    let response = yield request('http://home.baidu.com/jobs/jobs.html',{
+      headers: { 'User-Agent': 'request by koa' }
+    }); //Yay, HTTP requests with no callbacks!
+    this.body = response.body;
+});
 
-console.log(first(2,1,2,3));
+app.listen(process.env.PORT || 8080);
+
+console.log('app start at port:8080...');
