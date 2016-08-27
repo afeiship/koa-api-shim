@@ -3,8 +3,15 @@ import url from 'url';
 import fs from 'fs';
 import path from 'path';
 
+let __responder;
 class Responder {
-  static responderCache ={};
+  static responderCache = {};
+  static getResponder(inResponderClass,inApp){
+    if(!__responder){
+      __responder=new inResponderClass(inApp);
+    }
+    return __responder;
+  }
   constructor(inApp){
     this._app = inApp;
     this._responderClass = null;
@@ -13,13 +20,15 @@ class Responder {
     let config = this._app.config;
     let responderName = 'IndexResponder';
     let filePath = path.join(process.cwd(),'/src/responders/', responderName + '.js');
-    let ResponderClass;
-    if (!fs.existsSync(filePath)) {
-      return this.status = 404;
-    } else {
-      ResponderClass = require(filePath).default;
-      this._responderClass = ResponderClass.getInstance(this._app);
+    let ResponderClass=Responder.responderCache[filePath];
+    if(!ResponderClass){
+      if (!fs.existsSync(filePath)) {
+        return this.status = 404;
+      } else {
+        ResponderClass = require(filePath).default;
+      }
     }
+    this._responderClass = Responder.getResponder(ResponderClass,this._app);
   }
   *resolveResponse(){
     let app = this._app;
