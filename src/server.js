@@ -1,15 +1,21 @@
-import Koa from 'koa';
-import request from './vendors/koa-request';
+import fs from 'fs';
+import koa from 'koa';
+import url from 'url';
+import path from 'path';
+import request from './core/koa-request';
+import config from './config.json';
 
-let app = Koa();
+//middlewares:
+import bootstrap from './middlewares/bootstrap';
+import responder from './middlewares/responder';
 
-app.use(function *() {
-    let response = yield request('http://home.baidu.com/jobs/jobs.html',{
-      headers: { 'User-Agent': 'request by koa' }
-    }); //Yay, HTTP requests with no callbacks!
-    this.body = response.body;
-});
+//initial app:
+let app = koa();
 
-app.listen(process.env.PORT || 8080);
+//attach middlewares:
+app.use(bootstrap(config));
+app.use(responder());
+app.listen(config.port);
 
-console.log('app start at port:8080...');
+//show log:
+console.log(`app start at http://localhost:${config.port}`);

@@ -7,6 +7,9 @@
     "name": "afei",
     "email": "1290657123@qq.com"
   },
+  "scripts":{
+    "serve":"node src/init.js"
+  },
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.14.0",

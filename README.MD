@@ -9,6 +9,7 @@ Nodejs shim use koa framework to call backend api.
 + http://www.cnblogs.com/diligenceday/p/5453523.html
 + http://babeldev.dan.cx/docs/setup/#gulp
 + https://github.com/dionoid/koa-request/blob/master/index.js
++ http://blog.csdn.net/qiqingjin/article/details/51921331
 
 ## get-start:
 ```bash
