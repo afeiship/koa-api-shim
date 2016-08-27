@@ -16,3 +16,7 @@ Nodejs shim use koa framework to call backend api.
 ```bash
 npm -g  install babel-cli
 ```
+
+
+##example:
++ http://localhost:8081/index.php?id=123

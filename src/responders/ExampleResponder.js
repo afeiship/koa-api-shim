@@ -9,6 +9,6 @@ export default class IndexResponder extends BaseResponder{
   }
   *doJob(){
     console.log(this._app.parameters);
-    return 'I am an example!!!'
+    return JSON.stringify(this._app.parameters);
   }
 }
