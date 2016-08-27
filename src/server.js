@@ -14,7 +14,7 @@ let app = koa();
 
 //attach middlewares:
 app.use(bootstrap(config));
-app.use(responder());
+app.use(responder(config));
 app.listen(config.port);
 
 //show log:

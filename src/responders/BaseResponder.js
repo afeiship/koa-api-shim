@@ -4,7 +4,6 @@ export default class BaseResponder{
   constructor(inApp){
     this._app=inApp;
     this.$http=$http;
-    console.log('instanced!!!!');
   }
   *doJob(){
   }

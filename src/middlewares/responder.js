@@ -1,41 +1,46 @@
-
-import url from 'url';
 import fs from 'fs';
 import path from 'path';
+import config from '../config.json';
 
-let __responder;
+let __instance;
+
 class Responder {
   static responderCache = {};
-  static getResponder(inResponderClass,inApp){
-    if(!__responder){
-      __responder=new inResponderClass(inApp);
+  static getInstance(inResponderClass,inApp){
+    if(!__instance){
+      __instance=new inResponderClass(inApp);
     }
-    return __responder;
+    return __instance;
   }
   constructor(inApp){
     this._app = inApp;
     this._responderClass = null;
   }
   loadResponderClass(){
-    let config = this._app.config;
-    let responderName = 'IndexResponder';
-    let filePath = path.join(process.cwd(),'/src/responders/', responderName + '.js');
-    let ResponderClass=Responder.responderCache[filePath];
-    if(!ResponderClass){
-      if (!fs.existsSync(filePath)) {
-        return this.status = 404;
-      } else {
-        ResponderClass = require(filePath).default;
+    let parameters = this._app.parameters;
+    if(parameters){
+      let responderName = `${parameters.name.charAt(0).toUpperCase()}${parameters.name.slice(1)}Responder`;
+      let filePath = path.join(process.cwd(),'/src/responders/', responderName + '.js');
+      console.log(filePath);
+      let ResponderClass=Responder.responderCache[filePath];
+      if(!ResponderClass){
+        if (!fs.existsSync(filePath)) {
+          return this._app.status = 404;
+        } else {
+          ResponderClass = require(filePath).default;
+        }
       }
+      this._responderClass = Responder.getInstance(ResponderClass,this._app);
     }
-    this._responderClass = Responder.getResponder(ResponderClass,this._app);
   }
   *resolveResponse(){
-    let app = this._app;
-    try {
-      app.body = yield this._responderClass.doJob() || '';
-    } catch (_) {
-      app.status = 500;
+    let parameters = this._app.parameters;
+    if(parameters){
+      try {
+        this._app.body = yield this._responderClass.doJob() || '';
+      } catch (_) {
+        this._app.status = 500;
+      }
     }
   }
 }
