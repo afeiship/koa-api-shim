@@ -2,14 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import config from '../config.json';
 
-let __instance;
-
 class Responder {
   static responderCache = {};
   static responderInstance = null;
-  static getInstance(inResponderClass){
-    console.log('inResponderClass.classId:->',inResponderClass.classId);
-  }
   static getFilePath(inApp){
     let parameters = inApp.parameters;
     let responderName =`${parameters.name.charAt(0).toUpperCase()}${parameters.name.slice(1)}Responder`;

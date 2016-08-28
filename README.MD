@@ -12,11 +12,25 @@ Nodejs shim use koa framework to call backend api.
 + http://blog.csdn.net/qiqingjin/article/details/51921331
 + https://github.com/typicode/json-server
 + https://babeljs.io/repl/
++ https://h3manth.com/new/blog/2015/es6-reflect-api/
+
 ## get-start:
-```bash
-npm -g  install babel-cli
++ npm run serve
++ http://localhost:8081/example.php?id=123&cd=123&token=tst1sfd`2234
+```json
+{
+  "query": {
+    "id": "123",
+    "cd": "123",
+    "token": "tst1sfd`2234"
+  },
+  "name": "example"
+}
 ```
-
-
-##example:
-+ http://localhost:8081/index.php?id=123
++ http://localhost:8081/index.php
+```json
+{
+  "query": {},
+  "name": "index"
+}
+```
