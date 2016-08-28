@@ -13,8 +13,8 @@ import responder from './middlewares/responder';
 let app = koa();
 
 //attach middlewares:
-app.use(bootstrap(config));
-app.use(responder(config));
+app.use(bootstrap());
+app.use(responder());
 app.listen(config.port);
 
 //show log:

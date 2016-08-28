@@ -8,7 +8,7 @@ class Bootstrap {
     let urlObj,name;
     let result = null;
     if(originalUrl.indexOf(config.disguiseSuffix)>-1){
-      urlObj= url.parse(inApp.originalUrl,true);
+      urlObj= url.parse(originalUrl,true);
       name = path.basename(urlObj.pathname,config.disguiseSuffix);
       return {
         query:urlObj.query,
@@ -16,15 +16,12 @@ class Bootstrap {
       };
     }
   }
-  constructor(inApp) {
-    this._app = inApp;
-    inApp.parameters = Bootstrap.getParameters(inApp);
-  }
 }
 
-export default function (inConfig) {
+export default function () {
   return function * (next) {
-    new Bootstrap(this,inConfig);
+    var parameters = Bootstrap.getParameters(this);
+    this.parameters=parameters;
     yield next;
   };
 };

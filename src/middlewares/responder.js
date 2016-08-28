@@ -6,40 +6,36 @@ let __instance;
 
 class Responder {
   static responderCache = {};
-  static getInstance(inResponderClass,inApp){
-    if(!__instance){
-      __instance=new inResponderClass(inApp);
-    }
-    return __instance;
+  static responderInstance = null;
+  static getInstance(inResponderClass){
+    console.log('inResponderClass.classId:->',inResponderClass.classId);
   }
-  constructor(inApp){
-    this._app = inApp;
-    this._responderClass = null;
+  static getFilePath(inApp){
+    let parameters = inApp.parameters;
+    let responderName =`${parameters.name.charAt(0).toUpperCase()}${parameters.name.slice(1)}Responder`;
+    let filePath = path.join(process.cwd(),'/src/responders/', responderName + '.js');
+    return filePath;
   }
-  loadResponderClass(){
-    let parameters = this._app.parameters;
-    if(parameters){
-      let responderName = `${parameters.name.charAt(0).toUpperCase()}${parameters.name.slice(1)}Responder`;
-      let filePath = path.join(process.cwd(),'/src/responders/', responderName + '.js');
-      console.log(filePath);
-      let ResponderClass=Responder.responderCache[filePath];
-      if(!ResponderClass){
-        if (!fs.existsSync(filePath)) {
-          return this._app.status = 404;
-        } else {
-          ResponderClass = require(filePath).default;
-        }
+  static loadResponderInstance(inApp){
+    let filePath = Responder.getFilePath(inApp);
+    let ResponderClass=Responder.responderCache[filePath];
+    if(!ResponderClass){
+      if (!fs.existsSync(filePath)) {
+        return inApp.status = 404;
+      } else {
+        ResponderClass = require(filePath).default;
       }
-      this._responderClass = Responder.getInstance(ResponderClass,this._app);
     }
+    //TODO:to be optimize:
+    Responder.responderInstance = new ResponderClass(inApp);
   }
-  *resolveResponse(){
-    let parameters = this._app.parameters;
+  static *resolveResponse(inApp){
+    let parameters = inApp.parameters;
     if(parameters){
       try {
-        this._app.body = yield this._responderClass.doJob() || '';
+        inApp.body = yield Responder.responderInstance.doJob() || '';
       } catch (_) {
-        this._app.status = 500;
+        inApp.status = 500;
       }
     }
   }
@@ -47,9 +43,8 @@ class Responder {
 
 export default function () {
   return function * (next) {
-    let responder = new Responder(this);
-    responder.loadResponderClass();
-    yield responder.resolveResponse();
+    Responder.loadResponderInstance(this);
+    yield Responder.resolveResponse(this);
     yield next;
   };
 };
