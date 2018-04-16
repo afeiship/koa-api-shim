@@ -14,6 +14,13 @@ Nodejs shim use koa framework to call backend api.( koa1 )
 + https://babeljs.io/repl/
 + https://h3manth.com/new/blog/2015/es6-reflect-api/
 
+## nginx_proxy:
+```conf
+location ~* \.php {
+  proxy_pass 	http://127.0.0.1:9091;
+}
+```
+
 ## get-start:
 + npm run serve
 + http://localhost:8081/example.php?id=123&cd=123&token=tst1sfd`2234
