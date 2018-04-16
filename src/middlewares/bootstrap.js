@@ -4,9 +4,9 @@ import config from '../config.json';
 
 class Bootstrap {
   static getParameters(inApp) {
-    let originalUrl = inApp.originalUrl;
     let urlObj, name;
     let result = null;
+    const originalUrl = inApp.originalUrl;
     if (originalUrl.indexOf(config.disguiseSuffix) > -1) {
       urlObj = url.parse(originalUrl, true);
       name = path.basename(urlObj.pathname, config.disguiseSuffix);
