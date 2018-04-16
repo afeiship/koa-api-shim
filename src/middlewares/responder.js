@@ -1,16 +1,16 @@
 import fs from 'fs';
 import path from 'path';
-import config from '../config.json';
+import config from 'root/config.json';
 const FAVICON = '/favicon.ico';
 
 class Responder {
 
-  static responderCache = {};
-  static responderInstance = null;
+  static _cache = {};
+  static _instance = null;
   static loadResponderInstance(inApp) {
+    const filePath = path.join(process.cwd(), `/src/responders/${inApp.parameters.name}-responder.js`);
+    let ResponderClass = Responder._cache[filePath];
     if (inApp.url !== FAVICON) {
-      let ResponderClass = Responder.responderCache[filePath];
-      const filePath = path.join(process.cwd(), `/src/responders/${inApp.parameters.name}-responder.js`);
       if (!ResponderClass) {
         if (!fs.existsSync(filePath)) {
           return inApp.status = 404;
@@ -20,14 +20,14 @@ class Responder {
       }
     }
     //TODO:to be optimize:
-    Responder.responderInstance = new ResponderClass(inApp);
+    Responder._instance = new ResponderClass(inApp);
   }
 
   static * resolveResponse(inApp) {
     let parameters = inApp.parameters;
     if (parameters) {
       try {
-        inApp.body = yield Responder.responderInstance.doJob() || '';
+        inApp.body = yield Responder._instance.doJob() || '';
       } catch (_) {
         inApp.status = 500;
       }

@@ -2,12 +2,12 @@ import fs from 'fs';
 import koa from 'koa';
 import url from 'url';
 import path from 'path';
-import request from './core/koa-request';
-import config from './config.json';
+import request from 'core/koa-request';
+import config from 'root/config.json';
 
 //middlewares:
-import bootstrap from './middlewares/bootstrap';
-import responder from './middlewares/responder';
+import bootstrap from 'middlewares/bootstrap';
+import responder from 'middlewares/responder';
 
 //initial app:
 let app = koa();

@@ -1,6 +1,6 @@
 import path from 'path';
 import url from 'url';
-import config from '../config.json';
+import config from 'root/config.json';
 
 class Bootstrap {
   static getParameters(inApp) {
