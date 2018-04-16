@@ -1,5 +1,5 @@
 # koa-api-shim
-Nodejs shim use koa framework to call backend api.
+Nodejs shim use koa framework to call backend api.( koa1 )
 
 
 ##resources:

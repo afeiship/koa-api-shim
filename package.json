@@ -1,6 +1,6 @@
 {
   "name": "koa-api-shim",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Nodejs shim use koa framework to call backend api.",
   "homepage": "https://github.com/afeiship/koa-api-shim",
   "author": {
@@ -8,7 +8,7 @@
     "email": "1290657123@qq.com"
   },
   "scripts": {
-    "serve": "node src/init.js"
+    "start": "node src/init.js"
   },
   "license": "MIT",
   "devDependencies": {

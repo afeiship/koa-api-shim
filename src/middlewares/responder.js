@@ -5,15 +5,9 @@ import config from '../config.json';
 class Responder {
   static responderCache = {};
   static responderInstance = null;
-  static getFilePath(inApp) {
-    let parameters = inApp.parameters;
-    let responderName = `${parameters.name.charAt(0).toUpperCase()}${parameters.name.slice(1)}Responder`;
-    let filePath = path.join(process.cwd(), '/src/responders/', responderName + '.js');
-    return filePath;
-  }
   static loadResponderInstance(inApp) {
-    let filePath = Responder.getFilePath(inApp);
     let ResponderClass = Responder.responderCache[filePath];
+    const filePath = path.join(process.cwd(), `/src/responders/${inApp.parameters.name}-responder.js`);
     if (!ResponderClass) {
       if (!fs.existsSync(filePath)) {
         return inApp.status = 404;

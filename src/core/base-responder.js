@@ -1,4 +1,4 @@
-import $http from '../core/koa-request';
+import $http from './koa-request';
 
 export default class BaseResponder{
   constructor(inApp){
