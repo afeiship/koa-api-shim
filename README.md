@@ -2,7 +2,7 @@
 Nodejs shim use koa framework to call backend api.( koa1 )
 
 
-##resources:
+## resources:
 + https://github.com/dionoid/koa-request
 + https://cnodejs.org/topic/56460e0d89b4b49902e7fbd3
 + https://segmentfault.com/q/1010000004280608
