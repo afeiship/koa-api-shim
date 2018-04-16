@@ -23,7 +23,7 @@ location ~* \.php {
 
 ## get-start:
 + npm run serve
-+ http://localhost:8081/example.php?id=123&cd=123&token=tst1sfd`2234
++ http://localhost:9091/api.php?id=123&cd=123&token=tst1sfd`2234
 ```json
 {
   "query": {
@@ -34,7 +34,7 @@ location ~* \.php {
   "name": "example"
 }
 ```
-+ http://localhost:8081/index.php
++ http://localhost:9091/index.php
 ```json
 {
   "query": {},

@@ -8,9 +8,10 @@ class Responder {
   static _cache = {};
   static _instance = null;
   static loadResponderInstance(inApp) {
-    const filePath = path.join(process.cwd(), `/src/responders/${inApp.parameters.name}-responder.js`);
-    let ResponderClass = Responder._cache[filePath];
     if (inApp.url !== FAVICON) {
+      const filePath = path.join(process.cwd(), `/src/responders/${inApp.parameters.name}-responder.js`);
+      let ResponderClass = Responder._cache[filePath];
+
       if (!ResponderClass) {
         if (!fs.existsSync(filePath)) {
           return inApp.status = 404;
@@ -18,9 +19,9 @@ class Responder {
           ResponderClass = require(filePath).default;
         }
       }
+      Responder._instance = new ResponderClass(inApp);
     }
-    //TODO:to be optimize:
-    Responder._instance = new ResponderClass(inApp);
+    return null;
   }
 
   static * resolveResponse(inApp) {
