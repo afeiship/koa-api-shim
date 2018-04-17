@@ -22,22 +22,12 @@ location ~* \.php {
 ```
 
 ## get-start:
-+ npm run serve
-+ http://localhost:9091/api.php?id=123&cd=123&token=tst1sfd`2234
-```json
++ npm run dev
++ http://localhost:9091/api.php?__cmd__=user_index&id=123&cd=123&token=tst1sfd`221
+```js
 {
-  "query": {
-    "id": "123",
-    "cd": "123",
-    "token": "tst1sfd`2234"
-  },
-  "name": "example"
-}
-```
-+ http://localhost:9091/index.php
-```json
-{
-  "query": {},
-  "name": "index"
+  id: "123",
+  cd: "123",
+  token: "tst1sfd`221"
 }
 ```

@@ -1,6 +1,6 @@
 import $http from './koa-request';
 
-export default class BaseResponder{
+export default class{
   constructor(inApp){
     this.$app=inApp;
     this.$http=$http;
