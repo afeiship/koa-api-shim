@@ -1,6 +1,10 @@
 {
   "presets": ["es2015", "stage-0"],
   "plugins": [
+    "transform-class-properties",
+    "transform-es2015-spread",
+    "transform-object-rest-spread",
+    "transform-decorators-legacy",
     [
       "module-resolver",
       {
@@ -11,6 +15,7 @@
           "root": ".",
           "src": "./src",
           "core": "./src/core",
+          "controllers": "./src/controllers",
           "middlewares": "./src/middlewares"
         }
       }
