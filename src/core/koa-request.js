@@ -12,7 +12,7 @@ function request(uri, options) {
 
 for (var attr in _request) {
   if (_request.hasOwnProperty(attr)) {
-    if (['get', 'post', 'put', 'patch', 'head', 'del'].indexOf(attr) > -1) {
+    if (['get', 'post', 'put', 'patch', 'head', 'delete'].indexOf(attr) > -1) {
       //trunkify request's convenience methods
       request[attr] = (function(attr) {
         return function(uri, options) {
