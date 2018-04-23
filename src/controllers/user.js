@@ -1,5 +1,6 @@
 export default class{
   *user_index(inData) {
-    return JSON.stringify(inData);
+    const list = yield this.$http.get('http://v.juhe.cn/toutiao/index');
+    return list.toJSON();
   }
 }
